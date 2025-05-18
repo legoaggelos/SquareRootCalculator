@@ -1,6 +1,10 @@
 #pragma once
-namespace RootCalculator {
-    double calculateApproximateRoot(int);
+namespace rootcalculator {
+    template<typename T>
+    T calculateApproximateRoot(T);
+    template<typename T>
+    T calculateApproximateRoot(T, long);
     int calculateExactRootOfExactSquare(int);
-    double calculateExactRoot(int);
+    template<typename T>
+    T calculateExactRoot(T);
 }

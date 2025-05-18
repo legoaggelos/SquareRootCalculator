@@ -7,14 +7,17 @@
 
 
 class Benchmark {
-private:
     double averageValueOffset;
     double averageTimeOffset;
     Timer timer;
-    std::vector<int>* randomValues;
+    std::unique_ptr<std::vector<int>> randomValues;
 public:
     Benchmark();
     ~Benchmark();
+    Benchmark(const Benchmark&);
+    Benchmark& operator=(const Benchmark&);
+    Benchmark(Benchmark&&) noexcept ;
+    Benchmark& operator=(Benchmark&&) noexcept ;
     bool runBenchmark(int);
     void generateRandomValues(int) const;
     double getAverageValueOffset() const;

@@ -7,13 +7,13 @@
 #include <cmath>
 #include <iostream>
 
-namespace NumberUtil {
-    long  findClosestNumberInOrderedList(std::vector<long>& list, long number) {
+namespace numberutil {
+    long  findClosestNumberInOrderedList(const std::vector<long>& list, const long number) {
         long high=list.size()-1;
         long middleValue;
         long low = 0;
         while (high-low>1) {
-            long middle = low+(high-low)/2;
+            const long middle = low+(high-low)/2;
             middleValue = list[middle];
             if (middleValue>number) {
                 high=middle;

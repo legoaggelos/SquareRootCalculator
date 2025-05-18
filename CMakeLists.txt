@@ -4,8 +4,8 @@ project(rootcalc)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(rootcalc main.cpp
-        root_table_generator.h
-        root_table_generator.cpp
+        RootTableGenerator.h
+        RootTableGenerator.cpp
         NumberUtil.cpp
         NumberUtil.h
         RootCalculator.cpp

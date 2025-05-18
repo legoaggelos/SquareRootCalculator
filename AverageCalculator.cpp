@@ -4,13 +4,13 @@
 
 #include "AverageCalculator.h"
 namespace AverageCalculator {
-    double calculateAverage(std::vector<double>* data) {
-        long double sum = 0;
-        long count = 0;
-        for (const double number : *data) {
-            count++;
+    template<typename T>
+    T calculateAverage(const std::vector<T>& data) {
+        T sum = 0;
+        for (const T number : data) {
             sum+=number;
         }
-        return (sum)/count;
+        return static_cast<long double>(sum)/data.size();
     }
+    template double calculateAverage<double>(const std::vector<double>&);
 }

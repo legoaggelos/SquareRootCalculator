@@ -4,6 +4,6 @@
 #pragma once
 #include <vector>
 
-namespace NumberUtil {
-    long findClosestNumberInOrderedList(std::vector<long>&, long);
+namespace numberutil {
+    long findClosestNumberInOrderedList(const std::vector<long>&, long);
 }

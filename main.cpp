@@ -3,7 +3,7 @@
 #include "Benchmark.h"
 #include "NumberUtil.h"
 #include "RootCalculator.h"
-#include "root_table_generator.h"
+#include "RootTableGenerator.h"
 
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 int main() {
@@ -12,13 +12,14 @@ int main() {
     //    std::cout<<n.first<<" squared is "<<n.second<<"\n";
     //}
     Benchmark benchmark = {};
-    Timer* timer = new Timer();
+    std::unique_ptr<Timer> timer { new Timer{} };
     timer->reset();
-    bool benchmarkSuccess=benchmark.runBenchmark(1000);
-    double benchmarkDuration=timer->elapsed();
-    delete timer;
+    const bool benchmarkSuccess=benchmark.runBenchmark(1000);
+    const double benchmarkDuration=timer->elapsed();
+    timer.reset();
     if (benchmarkSuccess) {
-        std::cout<<benchmark.getAverageTimeOffset()<<"< average time offset "<<std::fixed<< benchmark.getAverageValueOffset()<<" average value offset\n";
+        std::cout <<std::fixed <<std::setprecision(15) << benchmark.getAverageTimeOffset() << "< average time offset " << benchmark.
+                getAverageValueOffset() << " average value offset\n";
     }
     std::cout<<"Benchmark took: "<<benchmarkDuration<<"s \n";
     return 0;

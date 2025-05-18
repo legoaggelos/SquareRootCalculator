@@ -2,31 +2,40 @@
 // Created by User on 5/7/2025.
 //
 
-#include "RootCalculator.h"
+#include "rootcalculator.h"
 
 #include <vector>
 
 #include "NumberUtil.h"
-#include "root_table_generator.h"
+#include "RootTableGenerator.h"
 #include <cmath>
 
-namespace RootCalculator {
-    double calculateApproximateRoot(int number) {
+namespace rootcalculator {
+    static const auto table = roottablegenerator::generatePerfectSquareVector(32000);
+    static const auto reversedTable = roottablegenerator::generateReversedTableUpTo(32000);
+    template<typename T>
+    T calculateApproximateRoot(const T number) {
         if (number<0) {
             return -1;
         }
-        std::vector<long> table = RootTableGenerator::generatePerfectSquareVector(std::min(number,32000));
-        int nearestPerfectSquare = NumberUtil::findClosestNumberInOrderedList(table, number);
+        const int nearestPerfectSquare = numberutil::findClosestNumberInOrderedList(table, number);
+        return calculateApproximateRoot(number, nearestPerfectSquare);
+
+    }
+    template int calculateApproximateRoot<int>(int);
+    template<typename T>
+    T calculateApproximateRoot(const T number, const long nearestPerfectSquare) {
+        if (number<0) {
+            return -1;
+        }
         return static_cast<double>(number+nearestPerfectSquare)/(2*calculateExactRootOfExactSquare(nearestPerfectSquare));
-        //TODO: extract last part in separate method
     }
-
-    int calculateExactRootOfExactSquare(int number) {
-        return RootTableGenerator::generateReversedTableUpTo(std::min(number,32000)).at(number);
+    int calculateExactRootOfExactSquare(const int number) {
+        return reversedTable.at(number);
     }
-
-    double calculateExactRoot(int number) {
+    template<typename T>
+    T calculateExactRoot(const T number) {
         return std::sqrt(number);
     }
-
+    template double calculateExactRoot<double>(double);
 }
